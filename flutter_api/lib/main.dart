@@ -3,7 +3,8 @@ import 'package:flutter_api/Principal.dart';
 
 void main() {
   runApp(MaterialApp(
-    home: Principal()
+    home: Principal(),
+    debugShowCheckedModeBanner: false,
   ));
 }
 
