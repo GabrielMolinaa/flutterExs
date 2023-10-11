@@ -22,7 +22,7 @@ class _PrincipalState extends State<Principal> {
   int index =0;
   DateTime dataHoje = DateTime.now();
   String data = "";
-  
+
   getDados() async {
     
     if(campoCidade.text.isNotEmpty && campoEstado.text.isNotEmpty) {
