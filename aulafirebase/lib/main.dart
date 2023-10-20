@@ -73,7 +73,7 @@ void iniciaFirebase() async{
 
   //filtros
 
-  final todos = db.collection("produtos").where("preco", isLessThan: 20).orderBy('preco').orderBy('nome',descending: false).get().then((QuerySnapshot snapshot){
+  final todos = db.collection("produtos").where("preco", isLessThan: 20).orderBy('nome').get().then((QuerySnapshot snapshot){
     snapshot.docs.forEach((element){
 
       print("${element.data()}");

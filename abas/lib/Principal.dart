@@ -1,3 +1,6 @@
+import 'package:abas/Pagina1.dart';
+import 'package:abas/Pagina2.dart';
+import 'package:abas/Pagina3.dart';
 import 'package:flutter/material.dart';
 
 class Principal extends StatefulWidget {
@@ -23,6 +26,8 @@ class _PrincipalState extends State<Principal> with SingleTickerProviderStateMix
       appBar: AppBar(
         title: Text("Abas"),
         bottom: TabBar(
+          indicatorWeight: 5,
+          indicatorColor: Colors.orange,
           controller: tabController,
             tabs: [
               Tab(
@@ -42,7 +47,18 @@ class _PrincipalState extends State<Principal> with SingleTickerProviderStateMix
       ),
 
       body: TabBarView(
-          controller: tabController)
+          controller: tabController,
+          children: [
+            Pagina1(),
+            Pagina2(),
+            Pagina3(),
+        ],)
     );
+  }
+
+  @override
+  void dispose(){
+    tabController.dispose();
+    super.dispose();
   }
 }
