@@ -58,6 +58,16 @@ class _ExcluirState extends State<Excluir> {
                   ) ,
                 ),
                 onDismissed: (direction){
+                  banco.apagarProduto(listaProdutos[indice].id);
+                  listaProdutos.removeAt(indice);
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Produto Excluído com Sucesso!"),
+                      duration: Duration(seconds: 3),
+                      backgroundColor: Colors.red,
+                    )
+                  );
 
                 },
                 key: Key(listaProdutos[indice].id.toString()),
