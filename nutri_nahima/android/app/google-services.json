@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "157312264145",
+    "project_id": "nutrinahima",
+    "storage_bucket": "nutrinahima.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157312264145:android:b6f88a87eab6a4da5862f0",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxZ1csASxXSdLkq8KvVMylOPOciR24zvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157312264145:android:9178f75dbe80f8e05862f0",
+        "android_client_info": {
+          "package_name": "com.example.nutri_nahima"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxZ1csASxXSdLkq8KvVMylOPOciR24zvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
