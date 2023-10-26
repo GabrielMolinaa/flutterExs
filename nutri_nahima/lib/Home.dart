@@ -3,6 +3,9 @@ import 'package:async/async.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'Dietas.dart';
+import 'Receitas.dart';
+import 'Consultar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -26,36 +29,52 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     });
     tabController = TabController(length: 3, vsync: this, initialIndex: 0);
   }
-
+  int indiceSelecionado = 0;
+  List telas = [Dietas(), Receitas(),Consultar()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(nome),
         centerTitle: true,
-        bottom: TabBar(
-          indicatorWeight: 3,
-          indicatorColor: Colors.green,
-          controller: tabController,
-
-          tabAlignment: TabAlignment.center,
-          tabs: [
-            Tab(
-              text: "Dietas",
-              icon: Icon(Icons.list_alt),
-            ),
-            Tab(
-              text: "Dicas Receitas",
-              icon: Icon(Icons.fastfood),
-            ),
-            Tab(
-              text: "Marcar Consulta",
-              icon: Icon(Icons.calendar_month),
-
-            )
-          ],
-        ),
+        backgroundColor: Colors.green,
       ),
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (indice){
+            setState(() {
+              indiceSelecionado = indice;
+            });
+          },
+          indicatorColor: Colors.green,
+          selectedIndex: indiceSelecionado,
+          backgroundColor: Colors.white,
+          height: 60,
+
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+          indicatorShape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          destinations: [
+            NavigationDestination(
+              icon: Icon(Icons.list_alt, color: Colors.green),
+              selectedIcon: Icon(Icons.list_alt, color: Colors.white),
+              label: "Dietas",
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.fastfood, color: Colors.green),
+              selectedIcon: Icon(Icons.fastfood, color: Colors.white),
+              label: "Receitas",
+
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.calendar_month, color: Colors.green),
+              selectedIcon: Icon(Icons.calendar_month, color: Colors.white),
+              label: "Consultar",
+
+
+            ),
+          ],
+      ),
+
+      body: telas[indiceSelecionado],
     );
   }
 
