@@ -7,6 +7,7 @@ import 'Dietas.dart';
 import 'Receitas.dart';
 import 'Consultar.dart';
 
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -33,6 +34,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   List telas = [Dietas(), Receitas(),Consultar()];
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text(nome),
@@ -57,6 +59,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               icon: Icon(Icons.list_alt, color: Colors.green),
               selectedIcon: Icon(Icons.list_alt, color: Colors.white),
               label: "Dietas",
+
             ),
             NavigationDestination(
               icon: Icon(Icons.fastfood, color: Colors.green),

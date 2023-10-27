@@ -29,30 +29,18 @@ class _ElevatedCardExampleState extends State<ElevatedCardExample> {
       child: Card(
         child: SizedBox(
           width: 300,
-          height: 300,
+          height: 200,
           child: Column(
             children: [
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(widget.titulo, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black54)),
-                    SizedBox(width: 10),
-                    Icon(Icons.coffee, color: Colors.green),
-                  ],
-                ),
-              ),
               ListTile(
                 title: Text("Carbo: " + "${dieta.isNotEmpty ? dieta['carbo'] : 'Carregando...'}"),
-
+                
               ),
               ListTile(
                 title: Text("Proteína: "+"${dieta.isNotEmpty ? dieta['proteina'] : 'Carregando...'}"),
               ),
               ListTile(
-                title: Text("Fruta: " +
-                    "${dieta.isNotEmpty ? dieta['fruta'] : 'Carregando...'}"),
+                title: Text("Fruta: " + "${dieta.isNotEmpty ? dieta['fruta'] : 'Carregando...'}"),
               ),
             ],
           ),
