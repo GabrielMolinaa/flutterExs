@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:nutri_nahima/ConsultarAgenda.dart';
+import 'package:intl/intl.dart';
+import 'Home.dart';
 
 class Consultar extends StatefulWidget {
   const Consultar({Key? key});
@@ -14,11 +17,32 @@ class _ConsultarState extends State<Consultar> {
   DateTime? _selectedDay;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode.toggledOff;
+  late Future<Map<int, List<String>>> _horariosAgendadosFuture;
+  List<String> _horariosDisponiveis = [];
 
   @override
   void initState() {
     super.initState();
     _selectedDay = _focusedDay;
+    _horariosAgendadosFuture = consultarAgenda();
+    _horariosAgendadosFuture.then((value) {
+      List<String> horariosAgendados = value.values.expand((i) => i).toList();
+      List<String> horariosCompletos = [];
+      print(horariosAgendados);
+
+      for (int hour = 10; hour < 18; hour++) {
+        for (int minute = 0; minute < 60; minute += 30) {
+          String formattedTime = '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
+          if (!horariosAgendados.contains(formattedTime)) {
+            horariosCompletos.add(formattedTime);
+          }
+        }
+      }
+
+      setState(() {
+        _horariosDisponiveis = horariosCompletos;
+      });
+    });
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -26,9 +50,29 @@ class _ConsultarState extends State<Consultar> {
       setState(() {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
+
+        _horariosAgendadosFuture = consultarAgenda();
+        _horariosAgendadosFuture.then((value) {
+          List<String> horariosAgendados = value[selectedDay.day] ?? [];
+          List<String> horariosCompletos = [];
+
+          for (int hour = 10; hour < 18; hour++) {
+            for (int minute = 0; minute < 60; minute += 30) {
+              String formattedTime = '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
+              if (!horariosAgendados.contains(formattedTime)) {
+                horariosCompletos.add(formattedTime);
+              }
+            }
+          }
+
+          setState(() {
+            _horariosDisponiveis = horariosCompletos;
+          });
+        });
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,19 +124,19 @@ class _ConsultarState extends State<Consultar> {
               ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: 16, // 16 slots for 10:00 AM to 6:00 PM with 30-min intervals
+                itemCount: _horariosDisponiveis.length,
                 itemBuilder: (context, index) {
-                  int hour = index ~/ 2 + 10;
-                  int minute = (index % 2) * 30;
+                  String horarioDisponivel = _horariosDisponiveis[index];
+
                   return CheckboxListTile(
-                    title: Text('${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}'),
-                    value: _horariosSelecionados.contains(DateTime(_selectedDay!.year, _selectedDay!.month, _selectedDay!.day, hour, minute)),
+                    title: Text(horarioDisponivel),
+                    value: _horariosSelecionados.contains(horarioDisponivel),
                     onChanged: (bool? value) {
                       setState(() {
                         if (value != null && value) {
-                          _horariosSelecionados.add(DateTime(_selectedDay!.year, _selectedDay!.month, _selectedDay!.day, hour, minute));
+                          _horariosSelecionados.add(horarioDisponivel);
                         } else {
-                          _horariosSelecionados.remove(DateTime(_selectedDay!.year, _selectedDay!.month, _selectedDay!.day, hour, minute));
+                          _horariosSelecionados.remove(horarioDisponivel);
                         }
                       });
                     },
@@ -100,11 +144,34 @@ class _ConsultarState extends State<Consultar> {
                 },
               ),
             ],
+            ElevatedButton(
+              onPressed: () {
+                if (_selectedDay != null && _horariosSelecionados.isNotEmpty) {
+                  String formattedDate = DateFormat('dd/MM/yyyy').format(_selectedDay!);
+
+                  for (String horario in _horariosSelecionados) {
+                    String hora = horario.substring(0, 2);
+                    String minuto = horario.substring(3);
+                    DateTime dateTime = DateTime(
+                      _selectedDay!.year,
+                      _selectedDay!.month,
+                      _selectedDay!.day,
+                      int.parse(hora),
+                      int.parse(minuto),
+                    );
+
+                    String nome = getNo;
+                    adicionarConsulta(dateTime, nome);
+                  }
+                }
+              },
+              child: Text('Agendar'),
+            ),
           ],
         ),
       ),
     );
   }
 
-  List<DateTime> _horariosSelecionados = [];
+  List<String> _horariosSelecionados = [];
 }
