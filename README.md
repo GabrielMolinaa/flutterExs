@@ -1,2 +1,2 @@
-## *Studies in Flutter*
+## Studies in Flutter
 <br>
