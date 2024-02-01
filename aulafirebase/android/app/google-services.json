@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "663216345708",
-    "project_id": "cursofirebase-c365a",
-    "storage_bucket": "cursofirebase-c365a.appspot.com"
+    "project_number": "875459466802",
+    "project_id": "testefieldbook",
+    "storage_bucket": "testefieldbook.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:663216345708:android:7a96d63969aecbf1a27e49",
+        "mobilesdk_app_id": "1:875459466802:android:2c489eb525533a69000e2b",
         "android_client_info": {
-          "package_name": "com.example.aulafirebase"
+          "package_name": "com.android.application"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyArsnn3irWIgUc0GfnpqaoxROgXp9bgPdA"
+          "current_key": "AIzaSyDkyXpVXBV4-L0ZmTvb53eWRRVeDc_Qvgw"
         }
       ],
       "services": {
